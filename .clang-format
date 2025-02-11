@@ -1,5 +1,31 @@
-BasedOnStyle: llvm
+BasedOnStyle: LLVM  # Start with LLVM style as a base
 IndentWidth: 2
-AllowShortFunctionsOnASingleLine: None
-KeepEmptyLinesAtTheStartOfBlocks: false
-BreakBeforeBraces: None 
+UseTab: Never  # Always use spaces instead of tabs
+
+ColumnLimit: 100  # Slightly increase line width for readability
+# Braces Configuration
+BreakBeforeBraces: Custom  # Allows different rules for different cases
+BraceWrapping:
+  AfterFunction: true       # Braces on new line for functions
+  AfterClass: false         # Braces stay on same line for structs/classes
+  AfterStruct: false        # Braces stay on same line for structs
+  AfterEnum: false          # Braces stay on same line for enums
+  AfterNamespace: false     # Braces stay on same line for namespaces
+  AfterControlStatement: true  # Braces on new line for if/while/for
+  BeforeElse: true          # 'else' on a new line
+  BeforeCatch: true         # 'catch' on a new line
+
+AllowShortFunctionsOnASingleLine: None  # Avoid cramming small functions onto one line
+AllowShortIfStatementsOnASingleLine: false  # Keep 'if' statements readable
+AllowShortLoopsOnASingleLine: false  # Keep loops readable
+
+PointerAlignment: Right  # `int* ptr` instead of `int *ptr`
+AlignConsecutiveDeclarations: true  # Align variable declarations nicely
+AlignConsecutiveAssignments: true  # Align `=` assignments
+
+SpaceBeforeParens: ControlStatements  # if/while/for (condition) but func() stays func()
+SpaceBeforeRangeBasedForLoopColon: true  # Add space before `:` in range-based for loops
+SpacesInConditionalStatement: true  # `if ( condition )` instead of `if(condition)`
+
+SortIncludes: true  # Auto-sort #include statements
+

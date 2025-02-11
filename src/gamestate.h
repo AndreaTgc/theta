@@ -37,7 +37,7 @@ typedef struct {
   bitboard_t pieces[12];
   bitboard_t wp;
   bitboard_t bp;
-  uint32_t metadata;
+  uint32_t   metadata;
 } state_t;
 
 #define FREE_SQUARES(s) (~(s->bp | s->wp))
@@ -49,28 +49,25 @@ typedef struct {
 #define HALF_MOVE_CLOCK(s) ((s->metadata >> 9) & 0x3F)
 #define TOTAL_MOVES(s) ((s->metadata >> 15) & 0x1FFFF)
 
-#define SET_PLAYER_TO_MOVE(s, side)                                            \
-  ((s)->metadata = ((s)->metadata & ~1U) | ((side) & 1U))
+#define SET_PLAYER_TO_MOVE(s, side) ((s)->metadata = ((s)->metadata & ~1U) | ((side) & 1U))
 
-#define SET_CASTLING_RIGHTS(s, r)                                              \
+#define SET_CASTLING_RIGHTS(s, r)                                                                  \
   ((s)->metadata = ((s)->metadata & (~(0xF << 1))) | ((r & 0xF) << 1))
 
-#define SET_EN_PASSANT_FILE(s, ep)                                             \
+#define SET_EN_PASSANT_FILE(s, ep)                                                                 \
   ((s)->metadata = ((s)->metadata & (~(0xF << 5))) | ((ep & 0xF) << 5))
 
-#define SET_HALF_MOVE_CLOCK(s, c)                                              \
+#define SET_HALF_MOVE_CLOCK(s, c)                                                                  \
   ((s)->metadata = ((s)->metadata & (~(0x3F << 9))) | ((c & 0x3F) << 9))
 
-#define INCR_HALF_MOVE_CLOCK(s)                                                \
-  ((s)->metadata =                                                             \
-       ((s)->metadata & (~(0x3F << 9))) | ((HALF_MOVE_CLOCK(s) & 0x3F) << 9))
+#define INCR_HALF_MOVE_CLOCK(s)                                                                    \
+  ((s)->metadata = ((s)->metadata & (~(0x3F << 9))) | ((HALF_MOVE_CLOCK(s) & 0x3F) << 9))
 
-#define SET_TOTAL_MOVES(s, t)                                                  \
+#define SET_TOTAL_MOVES(s, t)                                                                      \
   ((s)->metadata = ((s)->metadata & ~(0x1FFFF << 15)) | ((t & 0x1FFFF) << 15))
 
-#define INCR_TOTAL_MOVES(s)                                                    \
-  ((s)->metadata = ((s)->metadata & (~(0x1FFFF << 15))) |                      \
-                   ((TOTAL_MOVES(s) & 0x1FFFF) << 15))
+#define INCR_TOTAL_MOVES(s)                                                                        \
+  ((s)->metadata = ((s)->metadata & (~(0x1FFFF << 15))) | ((TOTAL_MOVES(s) & 0x1FFFF) << 15))
 
 /**
  * prints the current state of the game

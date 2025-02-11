@@ -31,12 +31,12 @@ typedef uint64_t bitboard_t;
 #define BB_LSB(bb) (__builtin_ctzll(bb))
 #define BB_MSB(bb) (__builtin_clzll(bb))
 
-#define POP_LSB(bb, x)                                                         \
-  x = BB_LSB(bb);                                                              \
+#define POP_LSB(bb, x)                                                                             \
+  x = BB_LSB(bb);                                                                                  \
   bb &= ~AS_BIT(x)
 
-#define POP_MSB(bb, x)                                                         \
-  x = BB_MSB(bb);                                                              \
+#define POP_MSB(bb, x)                                                                             \
+  x = BB_MSB(bb);                                                                                  \
   bb &= ~AS_BIT(x)
 
 /**

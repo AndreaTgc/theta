@@ -1,7 +1,7 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -g -Wpedantic -fsanitize=address -std=c11 -DDEBUG_MODE 
-LDFLAGS = -fsanitize=address 
+CFLAGS = -Wall -Wextra -O2 -g -Wpedantic -std=c11 -DDEBUG_MODE 
+LDFLAGS =
 
 # Directories
 SRC_DIR = src
