@@ -1,5 +1,5 @@
-#include "bitboard.h"
-#include "macros.h"
+#include "../include/bitboard.h"
+#include "../include/macros.h"
 #include <stdio.h>
 
 void bb_print(bitboard_t b)

@@ -1,7 +1,7 @@
-#include "gamestate.h"
-#include "movegen.h"
+#include "../include/gamestate.h"
+#include "../include/movegen.h"
 
-int main()
+int main(void)
 {
   state_t gs;
   // const char *fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0

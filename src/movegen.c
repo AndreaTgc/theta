@@ -1,6 +1,6 @@
-#include "movegen.h"
-#include "bitboard.h"
-#include "move.h"
+#include "../include/movegen.h"
+#include "../include/bitboard.h"
+#include "../include/move.h"
 
 #define ADD_PROMOS(f, t, l, i)                                                                     \
   do                                                                                               \

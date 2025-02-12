@@ -1,5 +1,4 @@
-#include "gamestate.h"
-
+#include "../include/gamestate.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -81,13 +80,13 @@ void state_from_fen(state_t *gs, const char *fen)
     while ( *c != ' ' && *c != '\0' )
     {
       if ( *c == 'K' )
-        castles |= 0b1000; // White kingside
+        castles |= 0x08; // White kingside
       if ( *c == 'Q' )
-        castles |= 0b0100; // White queenside
+        castles |= 0x04; // White queenside
       if ( *c == 'k' )
-        castles |= 0b0010; // Black kingside
+        castles |= 0x02; // Black kingside
       if ( *c == 'q' )
-        castles |= 0b0001; // Black queenside
+        castles |= 0x01; // Black queenside
       c++;
     }
   }

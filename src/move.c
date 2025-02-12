@@ -1,4 +1,4 @@
-#include "move.h"
+#include "../include/move.h"
 #include <stdio.h>
 
 #define FILE_FROM_SQ(sq) (('a') + ((sq) % 8))
