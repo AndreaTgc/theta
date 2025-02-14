@@ -1,25 +1,17 @@
 #include "../include/bitboard.h"
-#include "../include/macros.h"
 #include <stdio.h>
 
-void bb_print(bitboard_t b)
+void bb_print(U64 b)
 {
-  for ( int r = 7; r >= 0; r-- )
-  {
-    for ( int f = 0; f < 8; f++ )
-    {
-      bitboard_t mask = (AS_BIT((r * 8) + f));
-      if ( mask & b )
-      {
-        putchar('x');
-      }
-      else
-      {
-        putchar('.');
-      }
-      putchar(' ');
-    }
-    putchar('\n');
-  }
-  putchar('\n');
+   puts("+-+-+-+-+-+-+-+");
+   for (int i = 0; i < 64; i++)
+   {
+      int r = 7 - (i / 8); // Reverse rank (since boards are printed top-down)
+      int f = i % 8;       // File remains unchanged
+
+      putchar((AS_BIT((r * 8) + f) & b) ? 'x' : '.');
+      putchar((f == 7) ? '\n' : ' '); // New line after every 8 squares
+   }
+   puts("+-+-+-+-+-+-+-+");
+   putchar('\n');
 }

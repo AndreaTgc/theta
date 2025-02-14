@@ -8,8 +8,7 @@ set(CMAKE_C_EXTENSIONS OFF)
 set(SRC_FILES
     src/main.c
     src/move.c
-    src/movegen.c
-		src/gamestate.c
+		src/state.c
 		src/bitboard.c
 )
 

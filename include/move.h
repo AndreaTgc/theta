@@ -1,9 +1,8 @@
 #ifndef MOVE_H_
 #define MOVE_H_
 
-#include "gamestate.h"
-#include "macros.h"
-#include <stdint.h>
+#include "state.h"
+#include "types.h"
 
 /**
  * We can encode moves in a single 16-bits integer by
@@ -16,7 +15,6 @@
  * |---------| |------------| |-----------|
  *    FLAG          TO-SQ         FROM-SQ
  */
-typedef uint16_t move_t;
 
 // clang-format off
 #define NORMAL_MOVE  0x0 // 0000
@@ -35,7 +33,7 @@ typedef uint16_t move_t;
 #define PC_BISHOP    0xF // 1111
 // clang-format on
 
-#define MOVE(from, to, flag) CAST(move_t, ((from) | (to << 6) | (flag << 12)))
+#define MOVE(from, to, flag) ((U16)((from) | (to << 6) | (flag << 12)))
 
 #define MOVE_GET_FROM(move) (move & 0x3F)
 #define MOVE_GET_TO(move) (move >> 6 & 0x3F)
@@ -45,29 +43,26 @@ typedef uint16_t move_t;
 #define MOVE_IS_CAPTURE(move) ((MOVE_GET_FLAG(move)) & CAPTURE)
 
 #define MOVE_SET_FROM(move, f)                                                                     \
-  do                                                                                               \
-  {                                                                                                \
-    (move) &= ~0x3F;                                                                               \
-    (move) |= (f & 0x3F);                                                                          \
-  } while ( 0 )
+   do {                                                                                            \
+      (move) &= ~0x3F;                                                                             \
+      (move) |= (f & 0x3F);                                                                        \
+   } while (0)
 
 #define MOVE_SET_TO(move, t)                                                                       \
-  do                                                                                               \
-  {                                                                                                \
-    (move) &= ~0xFC0;                                                                              \
-    (move) |= ((t & 0x3F) << 6);                                                                   \
-  } while ( 0 )
+   do {                                                                                            \
+      (move) &= ~0xFC0;                                                                            \
+      (move) |= ((t & 0x3F) << 6);                                                                 \
+   } while (0)
 
 #define MOVE_SET_FLAG(move, f)                                                                     \
-  do                                                                                               \
-  {                                                                                                \
-    (move) &= ~0xF;                                                                                \
-    (move) |= ((f & 0xF) << 12);
+   do {                                                                                            \
+      (move) &= ~0xF;                                                                              \
+      (move) |= ((f & 0xF) << 12);
 
-void move_print(move_t m);
+void move_print(U16 m);
 
-void move_apply(state_t *gs, move_t m);
+void move_apply(State *gs, U16 m);
 
-void move_undo(state_t *gs, move_t m);
+void move_undo(State *gs, U16 m);
 
 #endif // MOVE_H_

@@ -1,10 +1,14 @@
 #ifndef BITBOARD_H_
 #define BITBOARD_H_
 
-#include "macros.h"
-#include <stdint.h>
+#include "types.h"
 
-typedef uint64_t bitboard_t;
+/**
+ * Since the chess board is a 8x8 matrix, we can represent
+ * the board using a 64-bits integer, this allows us to use
+ * bit operations (incredibly fast on modern CPUs) to manipulate
+ * these boards
+ */
 
 // clang-format off
 #define RANK_1 0x00000000000000FF
@@ -32,17 +36,16 @@ typedef uint64_t bitboard_t;
 #define BB_MSB(bb) (__builtin_clzll(bb))
 
 #define POP_LSB(bb, x)                                                                             \
-  x = BB_LSB(bb);                                                                                  \
-  bb &= ~AS_BIT(x)
+   x = BB_LSB(bb);                                                                                 \
+   bb &= ~AS_BIT(x)
 
 #define POP_MSB(bb, x)                                                                             \
-  x = BB_MSB(bb);                                                                                  \
-  bb &= ~AS_BIT(x)
-
+   x = BB_MSB(bb);                                                                                 \
+   bb &= ~AS_BIT(x)
 /**
  * Shows the current state of a bitboard by printing
  * 'X' on high bits and '.' on low ones
  */
-void bb_print(bitboard_t b);
+void bb_print(U64 b);
 
 #endif // BITBOARD_H_
