@@ -9,6 +9,7 @@
  * bit operations (incredibly fast on modern CPUs) to manipulate
  * these boards
  */
+typedef U64 Bitboard;
 
 // clang-format off
 #define RANK_1 0x00000000000000FF
@@ -42,10 +43,11 @@
 #define POP_MSB(bb, x)                                                                             \
    x = BB_MSB(bb);                                                                                 \
    bb &= ~AS_BIT(x)
+
 /**
  * Shows the current state of a bitboard by printing
  * 'X' on high bits and '.' on low ones
  */
-void bb_print(U64 b);
+void bb_print(Bitboard b);
 
 #endif // BITBOARD_H_

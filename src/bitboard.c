@@ -1,7 +1,7 @@
 #include "../include/bitboard.h"
 #include <stdio.h>
 
-void bb_print(U64 b)
+void bb_print(Bitboard b)
 {
    puts("+-+-+-+-+-+-+-+");
    for (int i = 0; i < 64; i++)

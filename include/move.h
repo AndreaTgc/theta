@@ -14,7 +14,11 @@
  * 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
  * |---------| |------------| |-----------|
  *    FLAG          TO-SQ         FROM-SQ
+ *
+ * This allows us to have an extremely cache efficient
+ * move encoding that is great for deep searches.
  */
+typedef U16 Move;
 
 // clang-format off
 #define NORMAL_MOVE  0x0 // 0000
@@ -33,7 +37,7 @@
 #define PC_BISHOP    0xF // 1111
 // clang-format on
 
-#define MOVE(from, to, flag) ((U16)((from) | (to << 6) | (flag << 12)))
+#define MOVE(from, to, flag) ((Move)((from) | (to << 6) | (flag << 12)))
 
 #define MOVE_GET_FROM(move) (move & 0x3F)
 #define MOVE_GET_TO(move) (move >> 6 & 0x3F)
@@ -43,26 +47,29 @@
 #define MOVE_IS_CAPTURE(move) ((MOVE_GET_FLAG(move)) & CAPTURE)
 
 #define MOVE_SET_FROM(move, f)                                                                     \
-   do {                                                                                            \
+   do                                                                                              \
+   {                                                                                               \
       (move) &= ~0x3F;                                                                             \
       (move) |= (f & 0x3F);                                                                        \
    } while (0)
 
 #define MOVE_SET_TO(move, t)                                                                       \
-   do {                                                                                            \
+   do                                                                                              \
+   {                                                                                               \
       (move) &= ~0xFC0;                                                                            \
       (move) |= ((t & 0x3F) << 6);                                                                 \
    } while (0)
 
 #define MOVE_SET_FLAG(move, f)                                                                     \
-   do {                                                                                            \
+   do                                                                                              \
+   {                                                                                               \
       (move) &= ~0xF;                                                                              \
       (move) |= ((f & 0xF) << 12);
 
-void move_print(U16 m);
+void move_print(Move m);
 
-void move_apply(State *gs, U16 m);
+void move_apply(State *gs, Move m);
 
-void move_undo(State *gs, U16 m);
+void move_undo(State *gs, Move m);
 
 #endif // MOVE_H_

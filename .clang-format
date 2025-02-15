@@ -1,8 +1,8 @@
-BasedOnStyle: LLVM  # Use LLVM as base, then override settings
-IndentWidth: 3      # 4 spaces for indentation
-UseTab: Never       # Always use spaces (modern convention)
-BreakBeforeBraces: Allman  # Place braces on a new line (Allman style)
-ColumnLimit: 100    # Allows slightly longer lines before wrapping
+BasedOnStyle: LLVM  
+IndentWidth: 2      
+UseTab: Never       
+BreakBeforeBraces: Allman  
+ColumnLimit: 100  
 AllowShortFunctionsOnASingleLine: Empty  # Only empty functions can be single-line
 PointerAlignment: Right  # int* ptr; instead of int *ptr;
 SpaceBeforeParens: ControlStatements  # if (...) instead of if(...)
