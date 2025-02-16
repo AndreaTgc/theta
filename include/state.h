@@ -23,6 +23,10 @@ typedef struct
 #define INIT_FEN_STR "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 #define INIT_STATE(gs) state_from_fen(gs, INIT_FEN_STR)
 
+/*--+--+--+--+--+--+--+--+--+--+*/
+/*    FUNCTION DEFINITIONS      */
+/*--+--+--+--+--+--+--+--+--+--+*/
+
 /**
  * prints the current state of the game
  */

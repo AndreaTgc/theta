@@ -3,4 +3,8 @@
 
 #include "types.h"
 
+/*--+--+--+--+--+--+--+--+--+--+*/
+/*    FUNCTION DEFINITIONS      */
+/*--+--+--+--+--+--+--+--+--+--+*/
+
 #endif // MOVEGEN_H_

@@ -1,16 +1,6 @@
 #include "../include/tables.h"
 
 /*--+--+--+--+--+--+--+--+--+--+*/
-/*  ATTACK AND MAGIC BITBOARDS  */
-/*--+--+--+--+--+--+--+--+--+--+*/
-
-Bitboard pawn_attacks[2][64];
-Bitboard knight_attacks[64];
-Bitboard king_attacks[64];
-Bitboard rook_attacks[64][4096];
-Bitboard bishop_attacks[64][512];
-
-/*--+--+--+--+--+--+--+--+--+--+*/
 /*   FUNCTION IMPLEMENTATIONS   */
 /*--+--+--+--+--+--+--+--+--+--+*/
 
@@ -30,16 +20,16 @@ static inline Bitboard pawn_attacks_mask(int square, Color player)
   Bitboard attacks = EMPTY_BITBOARD;
   if (player == WHITE)
   {
-    if (AS_BIT(square) & ~FILE_8)
+    if (AS_BIT(square) & ~FILE_H)
       attacks |= AS_BIT(square) << 9;
-    if (AS_BIT(square) & ~FILE_1)
+    if (AS_BIT(square) & ~FILE_A)
       attacks |= AS_BIT(square) << 7;
   }
   else
   {
-    if (AS_BIT(square) & ~FILE_1)
+    if (AS_BIT(square) & ~FILE_A)
       attacks |= AS_BIT(square) >> 7;
-    if (AS_BIT(square) & ~FILE_8)
+    if (AS_BIT(square) & ~FILE_H)
       attacks |= AS_BIT(square) >> 9;
   }
   return attacks;
@@ -48,21 +38,21 @@ static inline Bitboard pawn_attacks_mask(int square, Color player)
 static inline Bitboard knight_attacks_mask(int square)
 {
   Bitboard attacks = EMPTY_BITBOARD;
-  if (AS_BIT(square) >> 17 & ~FILE_8)
+  if (AS_BIT(square) >> 17 & ~FILE_H)
     attacks |= AS_BIT(square) >> 17;
-  if (AS_BIT(square) >> 15 & ~FILE_1)
+  if (AS_BIT(square) >> 15 & ~FILE_A)
     attacks |= AS_BIT(square) >> 15;
-  if (AS_BIT(square) >> 10 & ~(FILE_7 | FILE_8))
+  if (AS_BIT(square) >> 10 & ~(FILE_G | FILE_H))
     attacks |= AS_BIT(square) >> 10;
-  if (AS_BIT(square) >> 6 & ~(FILE_1 | FILE_2))
+  if (AS_BIT(square) >> 6 & ~(FILE_A | FILE_B))
     attacks |= AS_BIT(square) >> 6;
-  if (AS_BIT(square) << 17 & ~FILE_1)
+  if (AS_BIT(square) << 17 & ~FILE_A)
     attacks |= AS_BIT(square) << 17;
-  if (AS_BIT(square) << 15 & ~FILE_8)
+  if (AS_BIT(square) << 15 & ~FILE_H)
     attacks |= AS_BIT(square) << 15;
-  if (AS_BIT(square) << 10 & ~(FILE_1 | FILE_2))
+  if (AS_BIT(square) << 10 & ~(FILE_A | FILE_B))
     attacks |= AS_BIT(square) << 10;
-  if (AS_BIT(square) << 6 & ~(FILE_8 | FILE_7))
+  if (AS_BIT(square) << 6 & ~(FILE_G | FILE_H))
     attacks |= AS_BIT(square) << 6;
   return attacks;
 }
@@ -70,13 +60,13 @@ static inline Bitboard knight_attacks_mask(int square)
 static inline Bitboard king_attacks_mask(int square)
 {
   Bitboard attacks = EMPTY_BITBOARD;
-  if (AS_BIT(square) & ~FILE_1)
+  if (AS_BIT(square) & ~FILE_A)
   {
     attacks |= AS_BIT(square) >> 1;
     attacks |= AS_BIT(square) << 7;
     attacks |= AS_BIT(square) >> 9;
   }
-  if (AS_BIT(square) & ~FILE_8)
+  if (AS_BIT(square) & ~FILE_H)
   {
     attacks |= AS_BIT(square) << 1;
     attacks |= AS_BIT(square) << 9;
@@ -120,3 +110,13 @@ static inline Bitboard rook_attacks_mask(int square)
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
   return attacks;
 }
+
+/*--+--+--+--+--+--+--+--+--+--+*/
+/*  ATTACK AND MAGIC BITBOARDS  */
+/*--+--+--+--+--+--+--+--+--+--+*/
+
+Bitboard pawn_attacks[2][64];
+Bitboard knight_attacks[64];
+Bitboard king_attacks[64];
+Bitboard rook_attacks[64][4096];
+Bitboard bishop_attacks[64][512];

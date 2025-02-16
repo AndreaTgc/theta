@@ -47,24 +47,28 @@ typedef U16 Move;
 #define MOVE_IS_CAPTURE(move) ((MOVE_GET_FLAG(move)) & CAPTURE)
 
 #define MOVE_SET_FROM(move, f)                                                                     \
-   do                                                                                              \
-   {                                                                                               \
-      (move) &= ~0x3F;                                                                             \
-      (move) |= (f & 0x3F);                                                                        \
-   } while (0)
+  do                                                                                               \
+  {                                                                                                \
+    (move) &= ~0x3F;                                                                               \
+    (move) |= (f & 0x3F);                                                                          \
+  } while (0)
 
 #define MOVE_SET_TO(move, t)                                                                       \
-   do                                                                                              \
-   {                                                                                               \
-      (move) &= ~0xFC0;                                                                            \
-      (move) |= ((t & 0x3F) << 6);                                                                 \
-   } while (0)
+  do                                                                                               \
+  {                                                                                                \
+    (move) &= ~0xFC0;                                                                              \
+    (move) |= ((t & 0x3F) << 6);                                                                   \
+  } while (0)
 
 #define MOVE_SET_FLAG(move, f)                                                                     \
-   do                                                                                              \
-   {                                                                                               \
-      (move) &= ~0xF;                                                                              \
-      (move) |= ((f & 0xF) << 12);
+  do                                                                                               \
+  {                                                                                                \
+    (move) &= ~0xF;                                                                                \
+    (move) |= ((f & 0xF) << 12);
+
+/*--+--+--+--+--+--+--+--+--+--+*/
+/*    FUNCTION DEFINITIONS      */
+/*--+--+--+--+--+--+--+--+--+--+*/
 
 void move_print(Move m);
 

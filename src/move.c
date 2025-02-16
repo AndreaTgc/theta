@@ -90,48 +90,30 @@ void move_apply(State *gs, Move m)
     {
     case PROMO_QUEEN:
       if (AS_BIT(to) & RANK_1)
-      {
         gs->pieces[10] |= (AS_BIT(to));
-      }
       else
-      {
         gs->pieces[4] |= (AS_BIT(to));
-      }
       break;
     case PROMO_BISHOP:
       if (AS_BIT(to) & RANK_1)
-      {
         gs->pieces[9] |= (AS_BIT(to));
-      }
       else
-      {
         gs->pieces[3] |= (AS_BIT(to));
-      }
       break;
     case PROMO_ROOK:
       if (AS_BIT(to) & RANK_1)
-      {
         gs->pieces[7] |= (AS_BIT(to));
-      }
       else
-      {
         gs->pieces[1] |= (AS_BIT(to));
-      }
       break;
     case PROMO_KNIGHT:
       if (AS_BIT(to) & RANK_1)
-      {
         gs->pieces[8] |= (AS_BIT(to));
-      }
       else
-      {
         gs->pieces[2] |= (AS_BIT(to));
-      }
       break;
     }
   }
   else
-  {
     *fbb |= (AS_BIT(to));
-  }
 }
