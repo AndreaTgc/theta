@@ -19,6 +19,7 @@ typedef uint16_t U16;
 typedef uint8_t U8;
 
 #define AS_BIT(i) (1ULL << (i))
+#define CTOI(c) ((int)c - '0')
 
 /**
  * Enum to recognise the different players
@@ -104,6 +105,6 @@ typedef enum ESquare
 // clang-format on
 
 #define IS_SQUARE_VALID(sq) ((sq) >= A1 && (sq) <= H8)
-#define SQUARE_FROM_FR(f, r) ((Square)((r << 3) + f)) // (square * 8) + f
+#define SQUARE_FROM_RF(r, f) ((int)(((r) * 8) + (f)))
 
 #endif // TYPES_H_

@@ -8,8 +8,9 @@ set(CMAKE_C_EXTENSIONS OFF)
 set(SRC_FILES
     src/main.c
     src/move.c
-		src/state.c
-		src/bitboard.c
+	src/state.c
+	src/bitboard.c
+	src/tables.c
 )
 
 include_directories(include)
@@ -17,10 +18,10 @@ include_directories(include)
 add_executable(theta ${SRC_FILES})
 
 target_compile_options(theta PRIVATE
-		-Wall
-		-Werror
-		-O2
-		-Wpedantic
+	-Wall
+	-Werror
+	-O2
+	-Wpedantic
 )
 
 
