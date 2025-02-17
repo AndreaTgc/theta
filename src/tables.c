@@ -15,7 +15,7 @@ void init_attack_boards(void)
   }
 }
 
-static inline Bitboard pawn_attacks_mask(int square, Color player)
+Bitboard pawn_attacks_mask(int square, Color player)
 {
   Bitboard attacks = EMPTY_BITBOARD;
   if (player == WHITE)
@@ -35,7 +35,7 @@ static inline Bitboard pawn_attacks_mask(int square, Color player)
   return attacks;
 }
 
-static inline Bitboard knight_attacks_mask(int square)
+Bitboard knight_attacks_mask(int square)
 {
   Bitboard attacks = EMPTY_BITBOARD;
   if (AS_BIT(square) >> 17 & ~FILE_H)
@@ -57,7 +57,7 @@ static inline Bitboard knight_attacks_mask(int square)
   return attacks;
 }
 
-static inline Bitboard king_attacks_mask(int square)
+Bitboard king_attacks_mask(int square)
 {
   Bitboard attacks = EMPTY_BITBOARD;
   if (AS_BIT(square) & ~FILE_A)
@@ -77,37 +77,103 @@ static inline Bitboard king_attacks_mask(int square)
   return attacks;
 }
 
-static inline Bitboard bishop_attacks_mask(int square)
+Bitboard bishop_attacks_mask(int square)
+{
+  Bitboard attacks = EMPTY_BITBOARD;
+  int rk, fl;
+  int rank = square / 8;
+  int file = square % 8;
+  for (rk = rank + 1, fl = file + 1; rk < 7 && fl < 7; rk++, fl++)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  for (rk = rank - 1, fl = file + 1; rk > 0 && fl < 7; rk--, fl++)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  for (rk = rank + 1, fl = file - 1; rk < 7 && fl > 0; rk++, fl--)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  for (rk = rank - 1, fl = file - 1; rk > 0 && fl > 0; rk--, fl--)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  return attacks;
+}
+
+Bitboard get_bishop_attacks(int square, Bitboard blocks)
 {
   Bitboard attacks = EMPTY_BITBOARD;
   int rk, fl;
   int rank = square / 8;
   int file = square % 8;
   for (rk = rank + 1, fl = file + 1; rk <= 7 && fl <= 7; rk++, fl++)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
   for (rk = rank - 1, fl = file + 1; rk >= 0 && fl <= 7; rk--, fl++)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
   for (rk = rank + 1, fl = file - 1; rk <= 7 && fl >= 0; rk++, fl--)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
   for (rk = rank - 1, fl = file - 1; rk >= 0 && fl >= 0; rk--, fl--)
+  {
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
+  return attacks;
+}
+
+Bitboard rook_attacks_mask(int square)
+{
+  Bitboard attacks = EMPTY_BITBOARD;
+  int rank = square / 8;
+  int file = square % 8;
+  int rk, fl;
+  for (rk = rank + 1, fl = file; rk < 7; rk++)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  for (rk = rank - 1, fl = file; rk > 0; rk--)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  for (rk = rank, fl = file + 1; fl < 7; fl++)
+    attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+  for (rk = rank, fl = file - 1; fl > 0; fl--)
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
   return attacks;
 }
 
-static inline Bitboard rook_attacks_mask(int square)
+Bitboard get_rook_attacks(int square, Bitboard blocks)
 {
   Bitboard attacks = EMPTY_BITBOARD;
   int rank = square / 8;
   int file = square % 8;
   int rk, fl;
   for (rk = rank + 1, fl = file; rk <= 7; rk++)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
   for (rk = rank - 1, fl = file; rk >= 0; rk--)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
-  for (rk = rank, fl = file + 1; fl <= 8; fl++)
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
+  for (rk = rank, fl = file + 1; fl <= 7; fl++)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
   for (rk = rank, fl = file - 1; fl >= 0; fl--)
+  {
     attacks |= AS_BIT(SQUARE_FROM_RF(rk, fl));
+    if (AS_BIT(SQUARE_FROM_RF(rk, fl)) & blocks)
+      break;
+  }
   return attacks;
 }
 

@@ -7,16 +7,34 @@
 /*    FUNCTION DEFINITIONS      */
 /*--+--+--+--+--+--+--+--+--+--+*/
 
-/*
- * Computes all the attack bitboards at engine startup
- */
+// Computes all the attack and magic bitboards
+// when the engine starts
 void init_attack_boards(void);
 
-static inline Bitboard pawn_attacks_mask(int square, Color player);
-static inline Bitboard knight_attacks_mask(int square);
-static inline Bitboard king_attacks_mask(int square);
-static inline Bitboard bishop_attacks_mask(int square);
-static inline Bitboard rook_attacks_mask(int square);
+// Generates the possible captures for pawns from a given square
+Bitboard pawn_attacks_mask(int square, Color player);
+
+// Generates all possible moves for a knight in a given square
+Bitboard knight_attacks_mask(int square);
+
+// Generates all possible moves for a king in a given square
+Bitboard king_attacks_mask(int square);
+
+// Generates the relevant mask for bishops (magic bitboard comp)
+// this function assumes there are no blockers
+Bitboard bishop_attacks_mask(int square);
+
+// Generates the mask for possible bishop attacks given a set of
+// blocking pieces on the board
+Bitboard get_bishop_attacks(int square, Bitboard blocks);
+
+// Generates the relevant mask for rooks (magic bitboard comp)
+// this function assumes there are no blockers
+Bitboard rook_attacks_mask(int square);
+
+// Generates the mask for possible rook attacks given a set of
+// blocking pieces on the board
+Bitboard get_rook_attacks(int square, Bitboard blocks);
 
 /*--+--+--+--+--+--+--+--+--+--+*/
 /*  ATTACK AND MAGIC BITBOARDS  */
